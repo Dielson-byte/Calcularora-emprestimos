@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level Bank - Calculadora de Empréstimo</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Level Bank</h1>
+    </header>
+
+    <main>
+        <h2>Calculadora de Empréstimo</h2>
+        <form method="POST" action="/calculate" id="loan-form">
+            <label for="principal">Valor do Empréstimo (R$):</label>
+            <input type="number" id="principal" name="principal" step="0.01" required><br><br>
+            <label for="interest_rate">Taxa de Juros (% ao mês):</label>
+            <input type="number" id="interest_rate" name="interest_rate" step="0.01" required><br><br>
+            <label for="months">Número de Meses:</label>
+            <input type="number" id="months" name="months" required><br><br>
+            <button type="submit" id="calculate-button">Calcular</button>
+        </form>
+
+        {% if amount is defined %}
+            <h2>Valor de cada Parcela: R$ {{ amount | round(2) }}</h2>
+            <h3>Total de Parcelas: {{ months }}</h3>
+            <ul>
+                {% for i in range(1, months+1) %}
+                    <li>Parcela {{ i }}: R$ {{ amount | round(2) }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </main>
+    <div id="money-container"></div>
+</body>
+</html>
